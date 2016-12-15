@@ -20,7 +20,7 @@ Details:
   * I could split by sample VCF by chromsome, but then I'd have to handle 20+ files. I'm not doing this too often, so I'm more interested in keeping this simple and slow instead of fast and complicated. 
   * create a all chromosomes VCF with BCFtools concat (http://www.htslib.org/doc/bcftools.html)
 2. Merge your sample VCF with 1000g VCF
-  * Using the large VCF created in I., run BCFtools merge
+  * Using the large VCF created in 1., run BCFtools merge
 3. Filter to keep high quality positions
   * remove positions where there are low confidence genotype calls or missing genotypes
 4. Dimensionality reduction (PCA, MDS, t-sne)
