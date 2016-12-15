@@ -6,6 +6,7 @@ The short answer is: use peddy (http://peddy.readthedocs.io). peddy is fabulous,
 So, why not peddy. Well, it only imputes to 'Super Population,' e.g. east asia, european, south asia, etc. If you want to attempt to match a sample to a population (1000G has 26: http://www.internationalgenome.org/category/population/), then you will have to do some more work. 
 
 Workflow:
+
 I. Get 1000G vcf
 II. Merge your sample VCF with 1000G vcf
 III. Filter to keep high quality positions
