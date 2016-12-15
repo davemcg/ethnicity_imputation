@@ -8,14 +8,14 @@ So, why not peddy? Well, it only imputes to 'Super Population,' e.g. east asia, 
 ---------------------------
 Workflow:
 
-1. Get 1000G VCF
+1. Get 1000Genomes VCF
 2. Merge your sample VCF with 1000G VCF
 3. Filter to keep high quality positions
 4. Dimensionality reduction (PCA, MDS, t-sne)
 
 Details:
 
-1. Get 1000G VCF
+1. Get 1000Genomes VCF
   * the first problem is that 1000G provides their sample-specific genotypes only as VCF files split by chromosomes. This could be considered a plus since you have instant parallelization for the merge step (II.). However I found that the merge process didn't work well with the separate files, since my sample's VCF has all chromosomes and the merged vcf had lots of blank positions for the 'missing' chromosomes.
   * I could split by sample VCF by chromsome, but then I'd have to handle 20+ files. I'm not doing this too often, so I'm more interested in keeping this simple and slow instead of fast and complicated. 
   * create a all chromosomes VCF with BCFtools concat (http://www.htslib.org/doc/bcftools.html)
