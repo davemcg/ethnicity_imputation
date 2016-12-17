@@ -19,4 +19,4 @@ tsne <- Rtsne(geno_var, perplexity=50, theta=0.0, check_duplicates=FALSE)
 plot <- data.frame(tsne$Y)
 plot$ID <- plink_raw$IID
 plot <- left_join(plot, ped, by=c('ID'='Individual.ID'))
-ggplot(all,aes(x=X1,y=X2,colour=Population)) + geom_point() + scale_colour_brewer(palette='Set1') + theme_bw()
+ggplot(plot,aes(x=X1,y=X2,colour=Super.Population,shape=Population)) + geom_point(size=3) + scale_colour_brewer(palette='Set1') + theme_bw() + scale_shape_manual(values=c(1:24,40:45))
