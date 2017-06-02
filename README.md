@@ -12,8 +12,8 @@ Workflow Overview (biowulf2):
     * 1000G only gives sample-specific genotypes as VCF split by chr
     * Need to merge into a single VCF
 2. Merge your sample VCF with 1000G VCF
-3. Filter to keep high quality positions
-4. Dimensionality reduction (PCA, MDS, t-sne)
+3. Remove missing genotypes and reformat to tabular format for R
+4. Dimensionality reduction (PCA, MDS, t-sne), semi-interactively in R
 
 Example Use:
 1. Get 1000Genomes VCF (only need to do once)
