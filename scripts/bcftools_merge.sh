@@ -4,7 +4,7 @@ module load vcftools/0.1.14
 
 # vcf must be bgzip and tabix indexed
 single_sample_vcf=$1
-#ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+#/data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
 g1k_vcf=$2
 # end name in "vcf.gz"
 output_vcf_name=$3
