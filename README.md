@@ -20,10 +20,10 @@ Example Use:
     * scripts/concat_1000G.sh
     * output vcf from above here:
         * /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
-2. Merge your sample VCF with 1000g VCF
+2. Merge your sample VCF with 1000g VCF (will take a while, use sbatch)ll
     * if you start with a multi-sample VCF, use [vcf_sample_stripper.sh](https://github.com/davemcg/biowulf2-bin/blob/master/vcf_sample_stripper.sh) to extract one sample
         * ~/git/ethnicity_imputation/vcf_sample_stripper.sh /data/mcgaugheyd/projects/nei/brooks/master_vcf/OGVFB_biesecker.exomes.bwa.b37.GATK3.5.2017-03-02.hardFilterSNP-INDEL.VEP.GRCh37.vcf.gz 1501 1501.vcf.gz
-    * ~/git/ethnicity_imputation/scripts/bcftools_merge.sh 1501.vcf.gz /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz 1501.g1k.vcf.gz
+    * sbatch ~/git/ethnicity_imputation/scripts/bcftools_merge.sh 1501.vcf.gz /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz 1501.g1k.vcf.gz
 3. Remove missing genotypes and reformat to tabular format for R
     * ~/git/ethnicity_imputation/scripts/vcf_to_table.sh 1501.g1k.vcf.gz 1501.g1k
 4. Dimensionality reduction (PCA, MDS, t-sne)
