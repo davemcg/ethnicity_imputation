@@ -6,26 +6,26 @@ The short answer is: use peddy (http://peddy.readthedocs.io). peddy is fabulous,
 So, why not peddy? Well, it only imputes to 'Super Population,' e.g. east asia, european, south asia, etc. If you want to attempt to match a sample to a population (1000G has 26: http://www.internationalgenome.org/category/population/), then you will have to do some more work. 
 
 ---------------------------
-Workflow:
+Workflow Overview (biowulf2):
 
 1. Get 1000Genomes VCF
+    * 1000G only gives sample-specific  genotypes as VCF split by chr
+    * Need to merge into a single VCF
 2. Merge your sample VCF with 1000G VCF
 3. Filter to keep high quality positions
 4. Dimensionality reduction (PCA, MDS, t-sne)
 
-Details:
-1. Get 1000Genomes VCF
-  * the first problem is that 1000G provides their sample-specific genotypes only as VCF files split by chromosomes. This could be considered a plus since you have instant parallelization for the merge step (II.). However I found that the merge process didn't work well with the separate files, since my sample's VCF has all chromosomes and the merged vcf had lots of blank positions for the 'missing' chromosomes.
-  * I could split by sample VCF by chromsome, but then I'd have to handle 20+ files. I'm not doing this too often, so I'm more interested in keeping this simple and slow instead of fast and complicated. 
-  * create a all chromosomes VCF with BCFtools concat (http://www.htslib.org/doc/bcftools.html)
-  * scripts/concat_1000G.sh
-  * output vcf from above here:
-  * /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+Example Use:
+1. Get 1000Genomes VCF (only need to do once)
+    * scripts/concat_1000G.sh
+    * output vcf from above here:
+        * /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
 2. Merge your sample VCF with 1000g VCF
-  * if you start with a multi-sample VCF, use vcf_sample_stripper.sh to extrat one sample
-  * scripts/bcftools_merge.sh
+    * if you start with a multi-sample VCF, use [vcf_sample_stripper.sh](https://github.com/davemcg/biowulf2-bin/blob/master/vcf_sample_stripper.sh) to extract one sample
+        * ~/git/ethnicity_imputation/vcf_sample_stripper.sh /data/mcgaugheyd/projects/nei/brooks/master_vcf/OGVFB_biesecker.exomes.bwa.b37.GATK3.5.2017-03-02.hardFilterSNP-INDEL.VEP.GRCh37.vcf.gz 1501 1501.vcf.gz
+    * ~/git/ethnicity_imputation/scripts/bcftools_merge.sh 1501.vcf.gz /data/mcgaugheyd/genomes/1000G_phase2_GRCh37/ALL.chromosomes.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz 1501.g1k.vcf.gz
 3. Remove missing genotypes and reformat to tabular format for R
-  * scripts/vcf_to_table.R
+    * ~/git/ethnicity_imputation/scripts/vcf_to_table.sh 1501.g1k.vcf.gz 1501.g1k
 4. Dimensionality reduction (PCA, MDS, t-sne)
-  * read data into R, ID high variance positions, and run PCA, MDS, and/or t-sne
-  * scripts/plot.R
+    * read data into R, ID high variance positions, and run PCA, MDS, and/or t-sne
+    * ~/git/ethnicity_imputation/scripts/plot.R
