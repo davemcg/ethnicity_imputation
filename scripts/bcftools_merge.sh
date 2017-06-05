@@ -10,9 +10,12 @@ g1k_vcf=$2
 output_vcf_name=$3
 
 bcftools merge $single_sample_vcf $g1k_vcf -R $single_sample_vcf | \
-	bgzip > $output_vcf_name
+	bgzip > /scratch/mcgaugheyd/$output_vcf_name
 
-tabix -p vcf $output_vcf_name
+tabix -p vcf /scratch/mcgaugheyd/$output_vcf_name
+
+# only keep AC count > 9
+bcftools view /scratch/mcgaugheyd/$output_vcf_name -c 10 | bgzip > $output_vcf_name
 
 # make sure vcf is sorted properly
 vcf-sort -c $output_vcf_name | bgzip > $output_vcf_name.tmp
